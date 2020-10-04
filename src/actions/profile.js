@@ -14,7 +14,7 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 
 export const updateProfile = (data) => ({
   api: {
-    endpoint: `/update-profile`,
+    endpoint: `/myaccount/update-profile`,
     method: "POST",
     type: UPDATE_PROFILE,
     payload: {
@@ -30,7 +30,7 @@ export const UPLOAD_AVATAR = 'UPLOAD_AVATAR';
 
 export const updateAvatar = (data) => ({
   api: {
-    endpoint: `/image-upload`,
+    endpoint: `/myaccount/image-upload`,
     method: "POST",
     type: UPLOAD_AVATAR,
     data,

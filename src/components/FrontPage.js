@@ -10,6 +10,7 @@ import { fetchPromotedItems } from '../actions';
 import { getProductsDiscount, getProductsNew } from '../reducers/selectors.js';
 import { Grid } from '@material-ui/core';
 import background from '../images/backgrounds/vintage-wallpaper.png';
+import Image from './Utils/Image.js'
 
 const Screenshots = styled(Grid)`
 grid-area: 2 / 2 / 3 / 3;
@@ -23,13 +24,9 @@ const PageContainer = styled.div`
 margin-top: 30px;
 `;
 
-const Image = styled.img`
-height: auto;
-width: 100%;
-`;
-
-const MainImage = styled(Image)`
+const MainImage = styled.div`
 grid-area: 1 / 1 / 6 / 2;
+width: 100%;
 
 @media (max-width: 700px) {
   grid-area: 2 / 1 / 3 / 2;
@@ -91,11 +88,15 @@ const arrowCss = css`
   font-size: ${props => props.size * 0.5}px;
 }`
 
+
+
 const Info = ({ product }) => {
 
   return (
     <InfoContainer>
-      <MainImage src={product.imageUrls} />
+      <MainImage >
+        <Image src={product.imageUrls} alt={product.name} />
+      </MainImage>
       <Title>
         <Typography variant="h5" gutterBottom>
           {product.name}

@@ -7,7 +7,7 @@ import { unauthorized } from '../actions/index.js';
 export const callApi = (endpoint, method, data) => {
   const token = loadState('jwt');
   axios.defaults.headers.common.Authorization = token ? `Bearer ${token}` : '';
-  const url = (endpoint.indexOf("http") === -1) ?  process.env.REACT_APP_API_HOST + '/api/shop' + endpoint : endpoint;
+  const url = (endpoint.indexOf("http") === -1) ?  process.env.REACT_APP_API_HOST  + endpoint : endpoint;
   switch (method) {
     case "GET": {
       return axios.get(url, {params: data});

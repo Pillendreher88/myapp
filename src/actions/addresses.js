@@ -5,7 +5,7 @@ export const CREATE_ADDRESS = 'CREATE_ADDRESS';
 
 export const addAddress = (data, history) => ({
   api: {
-    endpoint: `/addresses`,
+    endpoint: `/myaccount/addresses`,
     method: "POST",
     type: CREATE_ADDRESS,
     data,
@@ -18,7 +18,7 @@ export const FETCH_ADDRESS = 'FETCH_ADDRESS';
 
 export const fetchAddresses = () => ({
   api: {
-    endpoint: `/addresses`,
+    endpoint: `/myaccount/addresses`,
     method: "GET",
     type: FETCH_ADDRESS,
   }
@@ -28,7 +28,7 @@ export const DELETE_ADDRESS = 'DELETE_ADDRESS';
 
 export const deleteAddress = (id) => ({
   api: {
-    endpoint: `/addresses/${id}`,
+    endpoint: `/myaccount/addresses/${id}`,
     method: "DELETE",
     type: DELETE_ADDRESS,
     successMessage: messages.addressDelete,

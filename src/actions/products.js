@@ -11,7 +11,7 @@ export const FETCH_PRODUCT = 'FETCH_PRODUCT';
 
 export const fetchProduct = (id) => ({
   api: {
-    endpoint: `/product/${id}`,
+    endpoint: `/shop/product/${id}`,
     type: FETCH_PRODUCT,
     payload: {
       success: (state, res) => {
@@ -31,7 +31,7 @@ export const FETCH_CATEGORY = 'FETCH_CATEGORY';
 
 export const fetchCategory = (category) => ({
   api: {
-    endpoint: `/products/${category}`,
+    endpoint: `/shop/products/${category}`,
     type: FETCH_CATEGORY,
     payload: {
       pending: { category },
@@ -50,7 +50,7 @@ export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 
 export const fetchCategories = () => ({
   api: {
-    endpoint: `/categories`,
+    endpoint: `/shop/categories`,
     type: FETCH_CATEGORIES,
   }
 })
@@ -59,7 +59,7 @@ export const FETCH_PROMOTED = 'FETCH_PROMOTED';
 
 export const fetchPromotedItems = () => ({
   api: {
-    endpoint: `/frontpage`,
+    endpoint: `/shop/frontpage`,
     type: FETCH_PROMOTED,
   }
 })
@@ -68,7 +68,7 @@ export const FETCH_SUGGESTIONS = 'FETCH_SUGGESTIONS';
 
 export const fetchSuggestions = (data) => ({
   api: {
-    endpoint: `/autocomplete`,
+    endpoint: `/shop/autocomplete`,
     method: "GET",
     type: FETCH_SUGGESTIONS,
     data

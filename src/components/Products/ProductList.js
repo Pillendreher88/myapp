@@ -29,11 +29,15 @@ const ProductList = ({
   });
 
   useEffect(() => {
+    console.log("remount");
+  }, []);
+  useEffect(() => {
     
     let subSlug = subCategory ? `/${subCategory}` : "";
     let slug = `${category}${subSlug}`;
     selectCategory(slug);
     fetchProducts(slug);
+    console.log("fetch");
   }, [category, subCategory, selectCategory, fetchProducts]);
 
   if (categories.length === 0) return null;
@@ -61,7 +65,7 @@ const ProductList = ({
         >
           {(products) && products.map(product => {
             return <Grid item key={product.id} sm={6} xs={12} md={4}>
-              <LazyLoad once={true} height={200}>
+              <LazyLoad once={true} height={200} offset = {400}>
                 <Product product={product}
                   addToCart={addToCart} />
               </LazyLoad>
@@ -72,8 +76,6 @@ const ProductList = ({
     </div>
   );
 }
-
-
 
 ProductList.propTypes = {
   products: PropTypes.array,

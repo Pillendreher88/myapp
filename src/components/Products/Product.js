@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Image from '../Utils/Image.js'
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import React from 'react';
 import styled from 'styled-components';
@@ -21,22 +21,18 @@ flex-direction: row;
 align-items: center;
 justify-content: space-between;
 `;
-const ImageContainer = styled.div`
-padding: 10px 5px;
-height: 300px;
-position: relative;
+
+const ImageContainer = styled(Image)`
+
+margin-top: 1rem;
 
 & ${Discount}{
   position: absolute;
-  right: 0px;
-  bottom: 10px;
+  right: 0;
+  bottom: 0;
 }
+`;
 
-`;
-const Image = styled(CardMedia)`
-height: 100%;
-background-size: contain;
-`;
 const Description = styled(Typography)`
 display: -webkit-box;
 -webkit-line-clamp: 3;
@@ -45,54 +41,55 @@ overflow: hidden;
 `;
 
 
-export default function Product({product, addToCart}) {
+export default function Product({ product, addToCart }) {
 
   return (
     <Card >
       <CardContent>
-      <LinkWrap to={`/product/${product.id}`}>
-        <Typography gutterBottom variant="h5" component="h2">
-          {product.name}
-        </Typography>
-      </LinkWrap>
-      <LinkWrap to={`/product/${product.id}/reviews`}>
-        <Box display="flex" alignItems="center" >
-        {product.reviews_count > 0 && <ReviewsTooltip id={product.id} rating={product.rating} reviews_count={product.reviews_count}/> }
-          <Typography variant="subtitle2" component="span">
-           {`(${product.reviews_count > 0 ? product.reviews_count: "no reviews"})` }
+        <LinkWrap to={`/product/${product.id}`}>
+          <Typography gutterBottom variant="h5" component="h2">
+            {product.name}
           </Typography>
-        </Box>
-      </LinkWrap>
+        </LinkWrap>
+        <LinkWrap to={`/product/${product.id}/reviews`}>
+          <Box display="flex" alignItems="center" >
+            {product.reviews_count > 0 && <ReviewsTooltip id={product.id} rating={product.rating} reviews_count={product.reviews_count} />}
+            <Typography variant="subtitle2" component="span">
+              {`(${product.reviews_count > 0 ? product.reviews_count : "no reviews"})`}
+            </Typography>
+          </Box>
+        </LinkWrap>
         <Description variant="body2" color="textSecondary" component="p">
           {product.description}
         </Description>
+        <LinkWrap to={`/product/${product.id}`}>
+          <ImageContainer
+            src={product.imageUrls}
+            title={product.name}
+            alt={product.name}
+          >
+            {product.discount > 0 &&
+              <Discount>
+                {`-${product.discount}%`}
+              </Discount>
+            }
+          </ImageContainer>
+        </LinkWrap>
       </CardContent>
-      <LinkWrap to={`/product/${product.id}`}>
-      <ImageContainer>
-      <Image
-        image= {product.imageUrls}
-        title= {product.name}
-      />
-        {product.discount > 0 &&
-        <Discount>
-          {`-${product.discount}%`}
-        </Discount>
-        }
-      </ImageContainer>
-      </LinkWrap>
-      
-    <CardActions>
-      <Footer>
-        <Button onClick={() => addToCart(product.id)}
-              variant="contained"
-              color="primary"
-             startIcon={<AddShoppingCartIcon />}>
-          Add to Cart         
+
+
+      <CardActions>
+        <Footer>
+          <Button onClick={() => addToCart(product.id)}
+            variant="contained"
+            color="primary"
+            startIcon={<AddShoppingCartIcon />}>
+            Add to Cart
         </Button>
-        <PriceTag price={Number (product.price)} oldPrice = {(product.discount) !== 0 ? Number(product.priceBasis) : null}/>
-      </Footer>
-    </CardActions>
-  </Card>   
+          <PriceTag price={Number(product.price)} oldPrice={(product.discount) !== 0 ? Number(product.priceBasis) : null} />
+        </Footer>
+      </CardActions>
+    </Card>
   );
 }
 

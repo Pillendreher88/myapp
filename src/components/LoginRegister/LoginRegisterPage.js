@@ -5,6 +5,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import LoginForm from './LoginForm.js';
 import RegisterForm from './RegisterForm.js';
 import Button from '@material-ui/core/Button';
+import TestAccountInfo from './TestAccountInfo.js';
 
 export default function LoginRegisterPage() {
 
@@ -17,31 +18,32 @@ export default function LoginRegisterPage() {
   return (
     <>
       <Accordion expanded={expanded === 'login'} onChange={handleChange('login')}>
-      <AccordionSummary
-          style = {{display : expanded === 'register' ? 'flex' : 'none'}}
+        <AccordionSummary
+          style={{ display: expanded === 'register' ? 'flex' : 'none' }}
         >
-          <Button 
-            color="primary" 
+          <Button
+            color="primary"
             variant="outlined"
             fullWidth
           >Already registered? Login</Button>
         </AccordionSummary>
-        <AccordionDetails>
-        <LoginForm/>
+        <AccordionDetails style = {{flexWrap: "wrap"}}>
+          <LoginForm />
+          <TestAccountInfo />
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'register'} onChange={handleChange('register')}>
-      <AccordionSummary
-          style = {{display : expanded === 'login' ? 'flex' : 'none'}}
+        <AccordionSummary
+          style={{ display: expanded === 'login' ? 'flex' : 'none' }}
         >
-         <Button 
-          color="primary" 
-          variant="outlined"
-          fullWidth
-         > New here? Register</Button>
+          <Button
+            color="primary"
+            variant="outlined"
+            fullWidth
+          > New here? Register</Button>
         </AccordionSummary>
         <AccordionDetails>
-          <RegisterForm/>
+          <RegisterForm />
         </AccordionDetails>
       </Accordion>
     </>

@@ -23,6 +23,7 @@ export default (state = initialState, { type, payload }) => {
         return state;
       return {
         ...state, pagination: { next_page_url: payload.next_page_url },
+        title:  payload.product_name,
         [payload.product_id]: payload.data
       }
     case `SUCCESS_${FETCH_USER_REVIEWS}`:

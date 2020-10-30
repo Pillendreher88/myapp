@@ -15,7 +15,7 @@ function GlobalMessage({ deleteGlobalMessage, message }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (message != undefined)
+    if (message !== undefined)
       setOpen(true);
   }, [message]);
 

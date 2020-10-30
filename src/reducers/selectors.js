@@ -63,6 +63,11 @@ export const getReviews = (state, id) => {
   return state.reviews[id];
 }
 
+export const getReviewsTitle = (state, id) => {
+  if (!state.reviews) return null;
+  return state.reviews.title;
+}
+
 export const getUserReview = (state, id) => {
   if (!state.reviews || !state.reviews.currentUser) return null;
   return state.reviews.currentUser[id];

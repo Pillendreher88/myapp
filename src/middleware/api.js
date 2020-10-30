@@ -7,10 +7,10 @@ import { unauthorized } from '../actions/index.js';
 export const callApi = (endpoint, method, data) => {
   const token = loadState('jwt');
   axios.defaults.headers.common.Authorization = token ? `Bearer ${token}` : '';
-  const url = (endpoint.indexOf("http") === -1) ?  process.env.REACT_APP_API_HOST  + endpoint : endpoint;
+  const url = (endpoint.indexOf("http") === -1) ? process.env.REACT_APP_API_HOST + endpoint : endpoint;
   switch (method) {
     case "GET": {
-      return axios.get(url, {params: data});
+      return axios.get(url, { params: data });
     }
     case "POST": {
       return axios.post(url, data);
@@ -43,16 +43,16 @@ const apiMiddleware = store => next => action => {
     return next(action);
   }
 
-  const { 
+  const {
     endpoint,
-    data, 
-    type, 
-    method, 
-    cancelRequest, 
-    onSuccess, 
-    successMessage, 
+    data,
+    type,
+    method,
+    cancelRequest,
+    onSuccess,
+    successMessage,
     errorMessage,
-    payload = {}} = action.api;
+    payload = {} } = action.api;
 
   //possible check if api request should be made based on state
   if (typeof cancelRequest === 'function' && cancelRequest(getState())) {
@@ -74,15 +74,15 @@ const apiMiddleware = store => next => action => {
   const successAction = { type: successType, payload: (state, res) => res.data };
   const errorAction = { type: errorType, payload: (state, error) => error.response };
 
-  if(payload.pending) {
+  if (payload.pending) {
     pendingAction.payload = payload.pending;
   }
 
-  if(payload.success) {
-    successAction.payload = payload.success; ;
+  if (payload.success) {
+    successAction.payload = payload.success;;
   }
 
-  if(payload.error) {
+  if (payload.error) {
     errorAction.payload = payload.error;
   }
 
@@ -90,25 +90,33 @@ const apiMiddleware = store => next => action => {
   const apiCall = callApi(endpoint, method, data);
   return apiCall.then(
     (res) => {
-     
-      next({ ...successAction, payload: createPayload(successAction.payload, getState(), res)});
-      if(successMessage){
+
+      next({ ...successAction, payload: createPayload(successAction.payload, getState(), res) });
+      if (successMessage) {
         next(createGlobalMessage(successMessage, "success"));
       }
-      if(onSuccess) onSuccess();
-  }, (error) => {
- 
-    console.log(error);
-    if(error.response.status === 401 && type !== "LOGIN") {
-      next(unauthorized());
-      next(createGlobalMessage("You are not authorized.", "error"));
-    }
+      if (onSuccess) onSuccess();
+    }, (error) => {
 
-    next({ ...errorAction, payload: createPayload(errorAction.payload, getState(), error)});
-    if(errorMessage){
-      next(createGlobalMessage(errorMessage, "error"));
-    }
-  });
+      console.log(error);
+
+      if (error.response) {
+        if (error.response.status === 401 && type !== "LOGIN") {
+          next(unauthorized());
+          next(createGlobalMessage("You are not authorized.", "error"));
+        }
+        if (error.response.status === 500) {
+          next(createGlobalMessage("Sorry. Something on the server went wrong.", "error"));
+        }
+        next({ ...errorAction, payload: createPayload(errorAction.payload, getState(), error) });
+        if (errorMessage) {
+          next(createGlobalMessage(errorMessage, "error"));
+        }
+      }
+      else if (error.request) {
+        next(createGlobalMessage("Server does not respond.", "error"));
+      }
+    });
 }
 
 export default apiMiddleware;

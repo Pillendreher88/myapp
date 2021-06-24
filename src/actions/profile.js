@@ -1,16 +1,16 @@
 import messages from "./globalMessages";
 
-export const FETCH_USER_PROFILE = 'FETCH_USER_PROFILE';
+export const FETCH_USER_PROFILE = "FETCH_USER_PROFILE";
 
 export const getUserProfile = () => ({
   api: {
     endpoint: `/auth/me`,
     method: "POST",
     type: FETCH_USER_PROFILE,
-  }
-})
+  },
+});
 
-export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 export const updateProfile = (data) => ({
   api: {
@@ -19,14 +19,14 @@ export const updateProfile = (data) => ({
     type: UPDATE_PROFILE,
     payload: {
       success: {
-        data
+        data,
       },
     },
-    data
-  }
-})
+    data,
+  },
+});
 
-export const UPLOAD_AVATAR = 'UPLOAD_AVATAR';
+export const UPLOAD_AVATAR = "UPLOAD_AVATAR";
 
 export const updateAvatar = (data) => ({
   api: {
@@ -35,5 +35,15 @@ export const updateAvatar = (data) => ({
     type: UPLOAD_AVATAR,
     data,
     successMessage: messages.avatarUpload,
-  }
-})
+  },
+});
+
+export const FETCH_ORDERS = "FETCH_ORDERS";
+
+export const fetchOrders = () => ({
+  api: {
+    endpoint: `/myaccount/orders`,
+    method: "GET",
+    type: FETCH_ORDERS,
+  },
+});
